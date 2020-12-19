@@ -5,5 +5,3 @@ Content-Type: application/json
     "name": "Jukka Poika",
     "number": "12312123"
 }
-
-https://obscure-bayou-98932.herokuapp.com/api/persons
