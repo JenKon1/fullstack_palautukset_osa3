@@ -10,17 +10,17 @@ app.use(express.json())
 app.use(express.static('build'))
 app.use(morgan('tiny'))
 
-morgan.token('body', (req, res) => JSON.stringify(req.body));
-app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body'));
+morgan.token('body', (req, res) => JSON.stringify(req.body))
+app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body'))
 
 
 app.get('/api/persons', (req, res, next) => {
   Person.find({}).then(persons => {
     res.json(persons.map(person => person.toJSON()))
   })
-  .catch(error => {
-    next(error)
-  })
+    .catch(error => {
+      next(error)
+    })
 })
 
 /*app.get('/info', (req, res) => {
@@ -54,30 +54,24 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 app.post('/api/persons', (req, res, next) => {
-    const body = req.body
-  
-    if (!body.name || !body.number) {
-      return res.status(400).json({ 
-        error: 'content missing' 
-      })
-    }
+  const body = req.body
 
-    if (persons.map(person => person.name).find(name => name === body.name)) {
-        return res.status(400).json({ 
-          error: 'name must be unique' 
-        })
-      }
-  
-    const person = new Person({
-      name: body.name,
-      number: body.number,
+  if (!body.name || !body.number) {
+    return res.status(400).json({
+      error: 'content missing'
     })
-  
-    person.save()
+  }
+
+  const person = new Person({
+    name: body.name,
+    number: body.number,
+  })
+
+  person.save()
     .then(savedPerson => savedPerson.toJSON())
     .then(savedAndFormattedPerson => {
       res.json(savedAndFormattedPerson)
-    }) 
+    })
     .catch(error => next(error))
 })
 
