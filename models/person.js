@@ -26,21 +26,4 @@ personSchema.set('toJSON', {
 
 const Person = mongoose.model('Person', personSchema)
 
-/*const addPerson = (name, number) => {
-    const person = new Person({name, number})
-    person.save().then(response => {
-        console.log('added', name, 'number', number, 'to phonebook')
-        mongoose.connection.close()
-      })
-}
-
-const showPeople = () => {
-    Person.find({}).then(persons => {
-      persons.forEach(person => {
-        console.log(person.name, person.number)
-      })
-      mongoose.connection.close()
-    })
-}
-*/
 module.exports = mongoose.model('Person', personSchema)
